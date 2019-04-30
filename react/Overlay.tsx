@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState, FunctionComponent } from 'react'
 import Portal, { Props as PortalProps } from './components/Portal'
 
-enum Positioning {
-  window = 'window',
-  parent = 'parent',
+export enum Positioning {
+  document = 'document',
+  local = 'local',
 }
 
 interface Props extends PortalProps {
@@ -12,23 +12,29 @@ interface Props extends PortalProps {
 
 const Overlay: FunctionComponent<Props> = ({
   children,
-  positioning = Positioning.window,
+  positioning,
   target,
 }) => {
   const container = useRef<HTMLDivElement>(null)
   const [bounds, setBounds] = useState()
 
-  const isParentPositioning = positioning === Positioning.parent
+  const isPositioningLocal = positioning === Positioning.local
 
   useEffect(() => {
-    if (isParentPositioning && container.current) {
+    if (isPositioningLocal && container.current) {
       setBounds(container.current.getBoundingClientRect())
     }
-  }, [isParentPositioning])
+  }, [isPositioningLocal])
 
-  if (isParentPositioning) {
+  if (isPositioningLocal) {
     return (
-      <div ref={container}>
+      <div
+        ref={container}
+        style={{
+          width: 1,
+          height: 1,
+        }}
+      >
         {bounds && (
           <Portal target={target}>
             <div
