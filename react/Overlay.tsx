@@ -8,14 +8,12 @@ export enum Positioning {
 
 interface Props extends PortalProps {
   positioning: Positioning
-  zIndex?: number
 }
 
 const Overlay: FunctionComponent<Props> = ({
   children,
   positioning,
   target,
-  zIndex = 2147483647,
 }) => {
   const container = useRef<HTMLDivElement>(null)
   const [bounds, setBounds] = useState()
@@ -41,23 +39,12 @@ const Overlay: FunctionComponent<Props> = ({
           <Portal target={target}>
             <div
               style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                zIndex,
+                position: 'absolute',
+                top: bounds.top,
+                left: bounds.left,
               }}
             >
-              <div
-                style={{
-                  position: 'absolute',
-                  top: bounds.top,
-                  left: bounds.left,
-                }}
-              >
-                {children}
-              </div>
+              {children}
             </div>
           </Portal>
         )}
@@ -66,17 +53,9 @@ const Overlay: FunctionComponent<Props> = ({
   }
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-      }}
-    >
-      <Portal target={target}>{children}</Portal>
-    </div>
+    <Portal target={target} cover>
+      {children}
+    </Portal>
   )
 }
 
