@@ -1,12 +1,14 @@
 {
   "name": "react-portal",
   "vendor": "vtex",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "title": "React Portal",
   "description": "Component for adding other components on the top level of the DOM",
+  "scripts": {
+    "postreleasy": "vtex publish --verbose"
+  },
   "builders": {
     "react": "3.x"
   },
   "mustUpdateAt": "2020-03-28"
 }
-
