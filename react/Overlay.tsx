@@ -40,6 +40,7 @@ const Overlay: FunctionComponent<Props> = ({
 
   if (!fullWindow) {
     return (
+      // Div used for anchoring the position of the overlay, for popovers etc
       <div
         ref={container}
         style={{
