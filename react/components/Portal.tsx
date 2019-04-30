@@ -3,9 +3,9 @@ import { FunctionComponent } from 'react'
 import ReactDOM from 'react-dom'
 
 export interface Props {
+  cover?: boolean
   target?: HTMLElement
   zIndex?: number
-  cover?: boolean
 }
 
 const Portal: FunctionComponent<Props> = ({
