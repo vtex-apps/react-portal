@@ -13,11 +13,21 @@ const Overlay: FunctionComponent<Props> = ({
   const container = useRef<HTMLDivElement>(null)
   const [bounds, setBounds] = useState()
 
-  useEffect(() => {
+  const updatePosition = () => {
     if (!fullWindow && container.current) {
       setBounds(container.current.getBoundingClientRect())
     }
-  }, [fullWindow])
+  }
+
+  useEffect(updatePosition, [fullWindow])
+
+  useEffect(() => {
+    window && window.addEventListener('scroll', updatePosition)
+
+    return () => {
+      window && window.removeEventListener('scroll', updatePosition)
+    }
+  })
 
   if (!fullWindow) {
     return (
