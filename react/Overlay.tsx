@@ -5,17 +5,26 @@ interface Props extends PortalProps {
   fullWindow: boolean
 }
 
+interface Position {
+  left: number
+  top: number
+}
+
 const Overlay: FunctionComponent<Props> = ({
   children,
   fullWindow,
   target,
 }) => {
   const container = useRef<HTMLDivElement>(null)
-  const [bounds, setBounds] = useState()
+  const [position, setPosition] = useState<Position>()
 
   const updatePosition = () => {
     if (!fullWindow && container.current) {
-      setBounds(container.current.getBoundingClientRect())
+      const bounds = container.current.getBoundingClientRect()
+      setPosition({
+        left: bounds.left,
+        top: bounds.top,
+      })
     }
   }
 
@@ -38,13 +47,13 @@ const Overlay: FunctionComponent<Props> = ({
           height: 1,
         }}
       >
-        {bounds && (
+        {position && (
           <Portal target={target}>
             <div
               style={{
                 position: 'absolute',
-                top: bounds.top,
-                left: bounds.left,
+                left: position.left,
+                top: position.top,
               }}
             >
               {children}
