@@ -4,6 +4,9 @@
   "version": "0.1.0",
   "title": "React Portal",
   "description": "Component for adding other components on the top level of the DOM",
+  "scripts": {
+    "postreleasy": "vtex publish --verbose"
+  },
   "builders": {
     "react": "3.x"
   },
