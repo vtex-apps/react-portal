@@ -1,32 +1,25 @@
 import React, { useRef, useEffect, useState, FunctionComponent } from 'react'
 import Portal, { Props as PortalProps } from './components/Portal'
 
-export enum Positioning {
-  document = 'document',
-  local = 'local',
-}
-
 interface Props extends PortalProps {
-  positioning: Positioning
+  fullWindow: boolean
 }
 
 const Overlay: FunctionComponent<Props> = ({
   children,
-  positioning,
+  fullWindow,
   target,
 }) => {
   const container = useRef<HTMLDivElement>(null)
   const [bounds, setBounds] = useState()
 
-  const isPositioningLocal = positioning === Positioning.local
-
   useEffect(() => {
-    if (isPositioningLocal && container.current) {
+    if (!fullWindow && container.current) {
       setBounds(container.current.getBoundingClientRect())
     }
-  }, [isPositioningLocal])
+  }, [fullWindow])
 
-  if (isPositioningLocal) {
+  if (!fullWindow) {
     return (
       <div
         ref={container}
