@@ -35,6 +35,7 @@ const Overlay: FunctionComponent<Props> = ({
       window.addEventListener('scroll', updatePosition)
       window.addEventListener('load', updatePosition)
       window.addEventListener('resize', updatePosition)
+      window.addEventListener('visibilitychange', updatePosition)
     }
 
     return () => {
@@ -42,6 +43,7 @@ const Overlay: FunctionComponent<Props> = ({
         window.removeEventListener('scroll', updatePosition)
         window.removeEventListener('load', updatePosition)
         window.removeEventListener('resize', updatePosition)
+        window.removeEventListener('visibilitychange', updatePosition)
       }
     }
   }, [fullWindow])
