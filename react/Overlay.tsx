@@ -31,10 +31,20 @@ const Overlay: FunctionComponent<Props> = ({
 
     updatePosition()
 
-    window && window.addEventListener('scroll', updatePosition)
+    if (window) {
+      window.addEventListener('scroll', updatePosition)
+      window.addEventListener('load', updatePosition)
+      window.addEventListener('resize', updatePosition)
+      window.addEventListener('visibilitychange', updatePosition)
+    }
 
     return () => {
-      window && window.removeEventListener('scroll', updatePosition)
+      if (window) {
+        window.removeEventListener('scroll', updatePosition)
+        window.removeEventListener('load', updatePosition)
+        window.removeEventListener('resize', updatePosition)
+        window.removeEventListener('visibilitychange', updatePosition)
+      }
     }
   }, [fullWindow])
 
