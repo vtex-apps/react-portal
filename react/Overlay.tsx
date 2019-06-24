@@ -3,17 +3,24 @@ import Portal, { Props as PortalProps } from './components/Portal'
 
 interface Props extends PortalProps {
   fullWindow: boolean
+  alignment: HorizontalAlignment
 }
 
 interface Position {
-  left: number
-  top: number
+  x: number
+  y: number
+}
+
+enum HorizontalAlignment {
+  right = 'right',
+  left = 'left',
 }
 
 const Overlay: FunctionComponent<Props> = ({
   children,
   fullWindow,
   target,
+  alignment = HorizontalAlignment.left,
 }) => {
   const container = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<Position>()
@@ -22,9 +29,11 @@ const Overlay: FunctionComponent<Props> = ({
     const updatePosition = () => {
       if (!fullWindow && container.current) {
         const bounds = container.current.getBoundingClientRect()
+
         setPosition({
-          left: bounds.left,
-          top: bounds.top,
+          x:
+            alignment === HorizontalAlignment.left ? bounds.left : bounds.right,
+          y: bounds.top,
         })
       }
     }
@@ -46,7 +55,7 @@ const Overlay: FunctionComponent<Props> = ({
         window.removeEventListener('visibilitychange', updatePosition)
       }
     }
-  }, [fullWindow])
+  }, [alignment, fullWindow])
 
   if (!fullWindow) {
     return (
@@ -54,20 +63,25 @@ const Overlay: FunctionComponent<Props> = ({
       <div
         ref={container}
         style={{
-          width: 1,
+          width: 'auto',
           height: 1,
         }}
       >
         {position && (
           <Portal target={target}>
             <div
+              className={`flex ${
+                alignment === HorizontalAlignment.left
+                  ? 'justify-start'
+                  : 'justify-end'
+              }`}
               style={{
                 position: 'absolute',
-                left: position.left,
-                top: position.top,
+                left: position.x,
+                top: position.y,
               }}
             >
-              {children}
+              <div className="absolute">{children}</div>
             </div>
           </Portal>
         )}
