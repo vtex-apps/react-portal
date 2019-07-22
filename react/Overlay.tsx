@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useState, FunctionComponent } from 'react'
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  FunctionComponent,
+  useCallback,
+} from 'react'
 import Portal, { Props as PortalProps } from './components/Portal'
 
 interface Props extends PortalProps {
@@ -25,19 +31,18 @@ const Overlay: FunctionComponent<Props> = ({
   const container = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<Position>()
 
-  useEffect(() => {
-    const updatePosition = () => {
-      if (!fullWindow && container.current) {
-        const bounds = container.current.getBoundingClientRect()
+  const updatePosition = useCallback(() => {
+    if (!fullWindow && container.current) {
+      const bounds = container.current.getBoundingClientRect()
 
-        setPosition({
-          x:
-            alignment === HorizontalAlignment.left ? bounds.left : bounds.right,
-          y: bounds.top,
-        })
-      }
+      setPosition({
+        x: alignment === HorizontalAlignment.left ? bounds.left : bounds.right,
+        y: bounds.top,
+      })
     }
+  }, [alignment, fullWindow])
 
+  useEffect(() => {
     updatePosition()
 
     if (window) {
@@ -55,7 +60,7 @@ const Overlay: FunctionComponent<Props> = ({
         window.removeEventListener('visibilitychange', updatePosition)
       }
     }
-  }, [alignment, fullWindow])
+  }, [alignment, fullWindow, updatePosition, children])
 
   if (!fullWindow) {
     return (
