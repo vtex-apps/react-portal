@@ -32,14 +32,14 @@ const Overlay: FunctionComponent<Props> = ({
   const [position, setPosition] = useState<Position>()
 
   const updatePosition = useCallback(() => {
-      if (!fullWindow && container.current) {
-        const bounds = container.current.getBoundingClientRect()
+    if (!fullWindow && container.current) {
+      const bounds = container.current.getBoundingClientRect()
 
-        setPosition({
+      setPosition({
         x: alignment === HorizontalAlignment.left ? bounds.left : bounds.right,
-          y: bounds.top,
-        })
-      }
+        y: bounds.top,
+      })
+    }
   }, [alignment, fullWindow])
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const Overlay: FunctionComponent<Props> = ({
         window.removeEventListener('visibilitychange', updatePosition)
       }
     }
-  }, [alignment, fullWindow])
+  }, [alignment, fullWindow, updatePosition, children])
 
   if (!fullWindow) {
     return (
