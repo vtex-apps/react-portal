@@ -2,7 +2,7 @@
 
 # Basic Usage
 
-It is possible to wrap a HTML block with [Overlay](https://github.com/vtex-apps/react-portal/blob/master/react/Overlay.tsx) to make use of its advantages such as makinbg the block overlap any other block dispite the its z-index
+It is possible to wrap a HTML block with [Overlay](https://github.com/vtex-apps/react-portal/blob/master/react/Overlay.tsx) to make use of its advantages such as making the block overlap any other block dispite the its z-index
 
 ## Example:
 
