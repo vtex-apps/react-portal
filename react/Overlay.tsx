@@ -70,6 +70,7 @@ const Overlay: FunctionComponent<Props> = ({
         style={{
           width: 'auto',
           height: 1,
+          marginTop: -1,
         }}
       >
         {position && (
