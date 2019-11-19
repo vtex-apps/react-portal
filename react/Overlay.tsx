@@ -20,6 +20,33 @@ interface Position {
 enum HorizontalAlignment {
   right = 'right',
   left = 'left',
+  center = 'center',
+}
+
+const getXPositionByHorizontalAlignment = (alignment: HorizontalAlignment, bounds: ClientRect | DOMRect) => {
+  switch(alignment) {
+    case('left'):
+      return bounds.left
+    case ('right'):
+      return bounds.right
+    case ('center'):
+      return (bounds.right + bounds.left) / 2
+    default:
+      return bounds.left
+  }
+}
+
+const getJustifyTypeByHorizontalAlignment = (alignment: HorizontalAlignment) => {
+  switch(alignment) {
+    case('left'):
+      return 'justify-start'
+    case ('right'):
+      return 'justify-end'
+    case ('center'):
+      return 'justify-center'
+    default:
+      return 'justify-start'
+  }
 }
 
 const Overlay: FunctionComponent<Props> = ({
@@ -36,7 +63,7 @@ const Overlay: FunctionComponent<Props> = ({
       const bounds = container.current.getBoundingClientRect()
 
       setPosition({
-        x: alignment === HorizontalAlignment.left ? bounds.left : bounds.right,
+        x: getXPositionByHorizontalAlignment(alignment, bounds),
         y: bounds.top,
       })
     }
@@ -77,9 +104,7 @@ const Overlay: FunctionComponent<Props> = ({
           <Portal target={target}>
             <div
               className={`flex ${
-                alignment === HorizontalAlignment.left
-                  ? 'justify-start'
-                  : 'justify-end'
+                getJustifyTypeByHorizontalAlignment(alignment)
               }`}
               style={{
                 position: 'absolute',
