@@ -21,6 +21,7 @@ enum HorizontalAlignment {
   right = 'right',
   left = 'left',
   center = 'center',
+  window = 'window'
 }
 
 const getXPositionByHorizontalAlignment = (alignment: HorizontalAlignment, bounds: ClientRect | DOMRect) => {
@@ -31,6 +32,8 @@ const getXPositionByHorizontalAlignment = (alignment: HorizontalAlignment, bound
       return bounds.right
     case ('center'):
       return (bounds.right + bounds.left) / 2
+    case ('window'):
+      return 0
     default:
       return bounds.left
   }
