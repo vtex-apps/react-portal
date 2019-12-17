@@ -23,26 +23,31 @@ enum HorizontalAlignment {
   center = 'center',
 }
 
-const getXPositionByHorizontalAlignment = (alignment: HorizontalAlignment, bounds: ClientRect | DOMRect) => {
-  switch(alignment) {
-    case('left'):
+const getXPositionByHorizontalAlignment = (
+  alignment: HorizontalAlignment,
+  bounds: ClientRect | DOMRect
+) => {
+  switch (alignment) {
+    case 'left':
       return bounds.left
-    case ('right'):
+    case 'right':
       return bounds.right
-    case ('center'):
+    case 'center':
       return (bounds.right + bounds.left) / 2
     default:
       return bounds.left
   }
 }
 
-const getJustifyTypeByHorizontalAlignment = (alignment: HorizontalAlignment) => {
-  switch(alignment) {
-    case('left'):
+const getJustifyTypeByHorizontalAlignment = (
+  alignment: HorizontalAlignment
+) => {
+  switch (alignment) {
+    case 'left':
       return 'justify-start'
-    case ('right'):
+    case 'right':
       return 'justify-end'
-    case ('center'):
+    case 'center':
       return 'justify-center'
     default:
       return 'justify-start'
@@ -103,9 +108,9 @@ const Overlay: FunctionComponent<Props> = ({
         {position && (
           <Portal target={target}>
             <div
-              className={`flex ${
-                getJustifyTypeByHorizontalAlignment(alignment)
-              }`}
+              className={`flex ${getJustifyTypeByHorizontalAlignment(
+                alignment
+              )}`}
               style={{
                 position: 'absolute',
                 left: position.x,
