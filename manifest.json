@@ -1,7 +1,7 @@
 {
   "name": "react-portal",
   "vendor": "vtex",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "title": "React Portal",
   "description": "Component for adding other components on the top level of the DOM",
   "scripts": {

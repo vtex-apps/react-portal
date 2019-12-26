@@ -8,5 +8,5 @@
     "@types/react-dom": "^16.8.4",
     "@vtex/test-tools": "^0.1.4"
   },
-  "version": "0.2.3"
+  "version": "0.3.0"
 }
