@@ -9,5 +9,21 @@ It is possible to wrap a React element with [Overlay](https://github.com/vtex-ap
 ```
 <Overlay>
   <div>Hello World!</div>
-</Overlay> 
+</Overlay>
 ```
+
+## Props
+
+| Prop name    | Type          | Description                                                  | Default value |
+| ------------ | ------------- | ------------------------------------------------------------ | ------------- |
+| `alignment`  | `String`      | Horizontal alignment                                         | `left`        |
+| `fullWindow` | `Boolean`     | If true, the overlay will fill the whole window horizontally | -             |
+| `target`     | `HTMLElement` | Defines the container where the overlay will be created.     | -             |
+
+Here are the possible values of `HorizontalAlignment`
+
+| Value    | Description         |
+| -------- | ------------------- |
+| 'center' | Align to the center |
+| 'left'   | Align to the left   |
+| 'right'  | Align to the right  |
