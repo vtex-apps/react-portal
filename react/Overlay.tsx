@@ -64,7 +64,7 @@ const Overlay: FunctionComponent<Props> = ({
   const [position, setPosition] = useState<Position>()
 
   const updatePosition = useCallback(() => {
-    if (!fullWindow && container.current) {
+    if (container.current) {
       const bounds = container.current.getBoundingClientRect()
 
       setPosition({
@@ -72,7 +72,7 @@ const Overlay: FunctionComponent<Props> = ({
         y: bounds.top,
       })
     }
-  }, [alignment, fullWindow])
+  }, [alignment])
 
   useEffect(() => {
     updatePosition()
@@ -126,9 +126,17 @@ const Overlay: FunctionComponent<Props> = ({
   }
 
   return (
-    <Portal target={target} cover>
-      {children}
-    </Portal>
+    <div ref={container}>
+      {position && (
+        <Portal target={target} cover>
+          <div
+            style={{ position: 'absolute', top: position.y, width: '100vw' }}
+          >
+            {children}
+          </div>
+        </Portal>
+      )}
+    </div>
   )
 }
 
