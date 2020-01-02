@@ -74,7 +74,7 @@ const Overlay: FunctionComponent<Props> = ({
         y: bounds.top,
       })
     }
-  }, [alignment])
+  }, [alignment, fullWindow])
 
   useEffect(() => {
     updatePosition()
