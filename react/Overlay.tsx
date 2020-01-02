@@ -68,7 +68,9 @@ const Overlay: FunctionComponent<Props> = ({
       const bounds = container.current.getBoundingClientRect()
 
       setPosition({
-        x: getXPositionByHorizontalAlignment(alignment, bounds),
+        x: !fullWindow
+          ? getXPositionByHorizontalAlignment(alignment, bounds)
+          : 0,
         y: bounds.top,
       })
     }
