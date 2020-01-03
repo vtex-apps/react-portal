@@ -10,6 +10,7 @@ import Portal, { Props as PortalProps } from './components/Portal'
 interface Props extends PortalProps {
   fullWindow: boolean
   alignment: HorizontalAlignment
+  verticalAlignment: boolean
 }
 
 interface Position {
@@ -59,20 +60,28 @@ const Overlay: FunctionComponent<Props> = ({
   fullWindow,
   target,
   alignment = HorizontalAlignment.left,
+  verticalAlignment = false,
 }) => {
   const container = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<Position>()
 
   const updatePosition = useCallback(() => {
-    if (!fullWindow && container.current) {
+    if (container.current) {
       const bounds = container.current.getBoundingClientRect()
 
-      setPosition({
-        x: getXPositionByHorizontalAlignment(alignment, bounds),
-        y: bounds.top,
-      })
+      if (!fullWindow) {
+        setPosition({
+          x: getXPositionByHorizontalAlignment(alignment, bounds),
+          y: bounds.top,
+        })
+      } else if (verticalAlignment) {
+        setPosition({
+          x: 0,
+          y: bounds.top,
+        })
+      }
     }
-  }, [alignment, fullWindow])
+  }, [alignment, fullWindow, verticalAlignment])
 
   useEffect(() => {
     updatePosition()
@@ -118,6 +127,20 @@ const Overlay: FunctionComponent<Props> = ({
               }}
             >
               <div className="absolute">{children}</div>
+            </div>
+          </Portal>
+        )}
+      </div>
+    )
+  }
+
+  if (verticalAlignment) {
+    return (
+      <div ref={container}>
+        {position && (
+          <Portal target={target} cover>
+            <div className="absolute w-100" style={{ top: position.y }}>
+              {children}
             </div>
           </Portal>
         )}
