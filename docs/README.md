@@ -16,7 +16,7 @@ It is possible to wrap a React element with [Overlay](https://github.com/vtex-ap
 
 | Prop name           | Type          | Description                                                  | Default value |
 | ------------        | ------------- | ------------------------------------------------------------ | ------------- |
-| `verticalAlignment` | `Boolean`     | align vertically even if the `fullWindow` prop is true         | `false`
+| `verticalAlignment` | `Boolean`     | align vertically even if the `fullWindow` prop is true       | `false`       |
 | `alignment`         | `String`      | Horizontal alignment                                         | `left`        |
 | `fullWindow`        | `Boolean`     | If true, the overlay will fill the whole window horizontally | -             |
 | `target`            | `HTMLElement` | Defines the container where the overlay will be created.     | -             |

@@ -60,7 +60,7 @@ const Overlay: FunctionComponent<Props> = ({
   fullWindow,
   target,
   alignment = HorizontalAlignment.left,
-  verticalAlignment = false,
+  verticalAlignment = true,
 }) => {
   const container = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<Position>()
@@ -139,9 +139,7 @@ const Overlay: FunctionComponent<Props> = ({
       <div ref={container}>
         {position && (
           <Portal target={target} cover>
-            <div
-              style={{ position: 'absolute', top: position.y, width: '100vw' }}
-            >
+            <div className="absolute w-100" style={{ top: position.y }}>
               {children}
             </div>
           </Portal>
