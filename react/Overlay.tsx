@@ -134,7 +134,7 @@ const Overlay: FunctionComponent<Props> = ({
     )
   }
 
-  if (fullWindow && verticalAlignment) {
+  if (verticalAlignment) {
     return (
       <div ref={container}>
         {position && (
