@@ -60,7 +60,7 @@ const Overlay: FunctionComponent<Props> = ({
   fullWindow,
   target,
   alignment = HorizontalAlignment.left,
-  verticalAlignment = true,
+  verticalAlignment = false,
 }) => {
   const container = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<Position>()
