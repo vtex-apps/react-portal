@@ -64,6 +64,9 @@ const Overlay: FunctionComponent<Props> = ({
   const container = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<Position>()
 
+  /** updatePosition is throttled due to the use of getBoundingClientRect,
+   * which triggers a recalculation of the entire page layout, which in
+   * turn can be quite heavy */
   const updatePosition = useCallback(throttle(() => {
     if (!fullWindow && container.current) {
       const bounds = container.current.getBoundingClientRect()
