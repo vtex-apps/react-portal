@@ -6,6 +6,7 @@ import React, {
   useCallback,
 } from 'react'
 import Portal, { Props as PortalProps } from './components/Portal'
+import throttle from 'lodash.throttle'
 
 interface Props extends PortalProps {
   fullWindow: boolean
@@ -63,7 +64,7 @@ const Overlay: FunctionComponent<Props> = ({
   const container = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<Position>()
 
-  const updatePosition = useCallback(() => {
+  const updatePosition = useCallback(throttle(() => {
     if (!fullWindow && container.current) {
       const bounds = container.current.getBoundingClientRect()
 
@@ -72,7 +73,8 @@ const Overlay: FunctionComponent<Props> = ({
         y: bounds.top,
       })
     }
-  }, [alignment, fullWindow])
+  }, 200, { leading: false }), [alignment, fullWindow])
+
 
   useEffect(() => {
     updatePosition()
