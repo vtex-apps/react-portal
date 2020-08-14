@@ -76,6 +76,9 @@ const Overlay: FunctionComponent<Props> = ({
         y: bounds.top,
       })
     }
+  /** Also, the throttling is set to leading: false (which means that
+   * the function won't be called right away, but only after X ms),
+   * to improve hydration performance */
   }, 200, { leading: false }), [alignment, fullWindow])
 
 
