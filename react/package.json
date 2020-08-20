@@ -1,9 +1,11 @@
 {
   "dependencies": {
+    "lodash.throttle": "^4.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
   "devDependencies": {
+    "@types/lodash.throttle": "^4.1.6",
     "@types/react": "^16.8.15",
     "@types/react-dom": "^16.8.4",
     "@vtex/test-tools": "^0.1.4"

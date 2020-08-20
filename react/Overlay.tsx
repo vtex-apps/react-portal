@@ -6,6 +6,7 @@ import React, {
   useCallback,
 } from 'react'
 import Portal, { Props as PortalProps } from './components/Portal'
+import throttle from 'lodash.throttle'
 
 interface Props extends PortalProps {
   fullWindow: boolean
@@ -63,7 +64,10 @@ const Overlay: FunctionComponent<Props> = ({
   const container = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<Position>()
 
-  const updatePosition = useCallback(() => {
+  /** updatePosition is throttled due to the use of getBoundingClientRect,
+   * which triggers a recalculation of the entire page layout, which in
+   * turn can be quite heavy */
+  const updatePosition = useCallback(throttle(() => {
     if (!fullWindow && container.current) {
       const bounds = container.current.getBoundingClientRect()
 
@@ -72,7 +76,11 @@ const Overlay: FunctionComponent<Props> = ({
         y: bounds.top,
       })
     }
-  }, [alignment, fullWindow])
+  /** Also, the throttling is set to leading: false (which means that
+   * the function won't be called right away, but only after X ms),
+   * to improve hydration performance */
+  }, 200, { leading: false }), [alignment, fullWindow])
+
 
   useEffect(() => {
     updatePosition()
