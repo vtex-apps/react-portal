@@ -11,6 +11,9 @@
     "react": "3.x",
     "docs": "0.x"
   },
+  "dependencies": {
+    "vtex.css-handles": "0.x"
+  },
   "mustUpdateAt": "2020-03-28",
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

@@ -2,11 +2,15 @@ import React from 'react'
 import { FunctionComponent } from 'react'
 import ReactDOM from 'react-dom'
 
+import { useCssHandles } from 'vtex.css-handles'
+
 export interface Props {
   cover?: boolean
   target?: HTMLElement
   zIndex?: number
 }
+
+const CSS_HANDLES = ['autoCompleteContainer'] as const
 
 const Portal: FunctionComponent<Props> = ({
   children,
@@ -22,8 +26,12 @@ const Portal: FunctionComponent<Props> = ({
     return null
   }
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const handles = useCssHandles(CSS_HANDLES)
+
   return ReactDOM.createPortal(
     <div
+      className={handles.autoCompleteContainer}
       style={{
         position: 'fixed',
         top: 0,
