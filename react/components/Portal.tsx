@@ -18,6 +18,8 @@ const Portal: FunctionComponent<Props> = ({
   zIndex = 2147483647,
   cover,
 }) => {
+  const handles = useCssHandles(CSS_HANDLES)
+
   if (!target) {
     target = window && window.document && window.document.body
   }
@@ -25,9 +27,6 @@ const Portal: FunctionComponent<Props> = ({
   if (!target) {
     return null
   }
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const handles = useCssHandles(CSS_HANDLES)
 
   return ReactDOM.createPortal(
     <div
