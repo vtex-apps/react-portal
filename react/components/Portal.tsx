@@ -10,7 +10,7 @@ export interface Props {
   zIndex?: number
 }
 
-const CSS_HANDLES = ['autoCompleteContainer'] as const
+const CSS_HANDLES = ['portalContainer', 'portalWrapper'] as const
 
 const Portal: FunctionComponent<Props> = ({
   children,
@@ -30,7 +30,7 @@ const Portal: FunctionComponent<Props> = ({
 
   return ReactDOM.createPortal(
     <div
-      className={handles.autoCompleteContainer}
+      className={handles.portalContainer}
       style={{
         position: 'fixed',
         top: 0,
@@ -45,7 +45,9 @@ const Portal: FunctionComponent<Props> = ({
         zIndex,
       }}
     >
-      <div style={{ pointerEvents: 'auto' }}>{children}</div>
+      <div className={handles.portalWrapper} style={{ pointerEvents: 'auto' }}>
+        {children}
+      </div>
     </div>,
     target
   )
