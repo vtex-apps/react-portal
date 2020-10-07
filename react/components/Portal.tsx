@@ -2,11 +2,15 @@ import React from 'react'
 import { FunctionComponent } from 'react'
 import ReactDOM from 'react-dom'
 
+import { useCssHandles } from 'vtex.css-handles'
+
 export interface Props {
   cover?: boolean
   target?: HTMLElement
   zIndex?: number
 }
+
+const CSS_HANDLES = ['portalContainer', 'portalWrapper'] as const
 
 const Portal: FunctionComponent<Props> = ({
   children,
@@ -14,6 +18,8 @@ const Portal: FunctionComponent<Props> = ({
   zIndex = 2147483647,
   cover,
 }) => {
+  const handles = useCssHandles(CSS_HANDLES)
+
   if (!target) {
     target = window && window.document && window.document.body
   }
@@ -24,6 +30,7 @@ const Portal: FunctionComponent<Props> = ({
 
   return ReactDOM.createPortal(
     <div
+      className={handles.portalContainer}
       style={{
         position: 'fixed',
         top: 0,
@@ -38,7 +45,9 @@ const Portal: FunctionComponent<Props> = ({
         zIndex,
       }}
     >
-      <div style={{ pointerEvents: 'auto' }}>{children}</div>
+      <div className={handles.portalWrapper} style={{ pointerEvents: 'auto' }}>
+        {children}
+      </div>
     </div>,
     target
   )
