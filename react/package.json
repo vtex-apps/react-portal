@@ -12,5 +12,5 @@
     "@vtex/test-tools": "^0.1.4",
     "vtex.css-handles": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.4/public/@types/vtex.css-handles"
   },
-  "version": "0.3.1"
+  "version": "0.4.0"
 }
