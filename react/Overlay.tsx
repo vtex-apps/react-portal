@@ -2,15 +2,15 @@ import React, {
   useRef,
   useEffect,
   useState,
-  FunctionComponent,
   useCallback,
+  PropsWithChildren,
 } from 'react'
 import Portal, { Props as PortalProps } from './components/Portal'
 import throttle from 'lodash.throttle'
 
 interface Props extends PortalProps {
-  fullWindow: boolean
-  alignment: HorizontalAlignment
+  fullWindow?: boolean
+  alignment?: HorizontalAlignment
 }
 
 interface Position {
@@ -18,11 +18,7 @@ interface Position {
   y: number
 }
 
-enum HorizontalAlignment {
-  right = 'right',
-  left = 'left',
-  center = 'center',
-}
+type HorizontalAlignment = 'right' | 'left' | 'center'
 
 const getXPositionByHorizontalAlignment = (
   alignment: HorizontalAlignment,
@@ -55,32 +51,38 @@ const getJustifyTypeByHorizontalAlignment = (
   }
 }
 
-const Overlay: FunctionComponent<Props> = ({
+function Overlay({
   children,
   fullWindow,
   target,
-  alignment = HorizontalAlignment.left,
-}) => {
+  alignment = 'left',
+}: PropsWithChildren<Props>) {
   const container = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<Position>()
 
   /** updatePosition is throttled due to the use of getBoundingClientRect,
    * which triggers a recalculation of the entire page layout, which in
    * turn can be quite heavy */
-  const updatePosition = useCallback(throttle(() => {
-    if (!fullWindow && container.current) {
-      const bounds = container.current.getBoundingClientRect()
+  const updatePosition = useCallback(
+    throttle(
+      () => {
+        if (!fullWindow && container.current) {
+          const bounds = container.current.getBoundingClientRect()
 
-      setPosition({
-        x: getXPositionByHorizontalAlignment(alignment, bounds),
-        y: bounds.top,
-      })
-    }
-  /** Also, the throttling is set to leading: false (which means that
-   * the function won't be called right away, but only after X ms),
-   * to improve hydration performance */
-  }, 200, { leading: false }), [alignment, fullWindow])
-
+          setPosition({
+            x: getXPositionByHorizontalAlignment(alignment, bounds),
+            y: bounds.top,
+          })
+        }
+        /** Also, the throttling is set to leading: false (which means that
+         * the function won't be called right away, but only after X ms),
+         * to improve hydration performance */
+      },
+      200,
+      { leading: false }
+    ),
+    [alignment, fullWindow]
+  )
 
   useEffect(() => {
     updatePosition()
